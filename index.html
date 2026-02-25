@@ -442,11 +442,11 @@ function showEnd(){
   app.innerHTML=`
     <div class="credits-container">
       <div class="credits">
+
+창용 Day 🎬  <br>
 This story was made for one person  <br>
 이 이야기는 단 한 사람을 위해 만들어졌습니다.<br>  
 
-창용 Day 🎬  <br>
-  
 A Birthday Story Like No Other  <br>
 세상에 단 하나뿐인 생일 이야기  <br>
 
@@ -503,7 +503,30 @@ The End
       z-index:9998;">
     </div>
   `;
+const credits = document.querySelector(".credits");
 
+credits.addEventListener("animationend", () => {
+
+  // 1️⃣ 3초 암전
+  overlay.style.transition = "opacity 3s ease";
+  overlay.style.opacity = "1";
+
+  // 2️⃣ 3초 후 BGM 완전 종료
+  setTimeout(() => {
+
+    const fade = setInterval(() => {
+      if (bgm.volume > 0.01) {
+        bgm.volume -= 0.02;
+      } else {
+        bgm.pause();
+        bgm.currentTime = 0;
+        clearInterval(fade);
+      }
+    }, 80);
+
+  }, 3000);
+
+});
 function fadeOutBGM() {
   let vol = bgm.volume;
 
@@ -567,31 +590,7 @@ function writeSky(){
 
   setTimeout(finaleFireworks,4000);
 }
-// 크레딧 끝나면 자동 실행
-const credits = document.querySelector(".credits");
 
-credits.addEventListener("animationend", () => {
-
-  // 1️⃣ 3초 암전
-  overlay.style.transition = "opacity 3s ease";
-  overlay.style.opacity = "1";
-
-  // 2️⃣ 암전 후 BGM 완전 종료
-  setTimeout(() => {
-
-    const fade = setInterval(() => {
-      if (bgm.volume > 0.01) {
-        bgm.volume -= 0.02;
-      } else {
-        bgm.pause();
-        bgm.currentTime = 0;
-        clearInterval(fade);
-      }
-    }, 80);
-
-  }, 3000);
-
-});
 </script>
 </body>
 </html>
