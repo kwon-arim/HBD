@@ -503,34 +503,32 @@ The End
       font-weight:bold;
       z-index:9998;">
     </div>
-  `;
-// 🎬 크레딧 애니메이션이 끝나면 실행
-const credits = document.querySelector(".credits");
+  `;// 크레딧 애니메이션 끝 감지
+setTimeout(()=>{
+  const credits = document.querySelector(".credits");
+  if(!credits) return;
 
-credits.addEventListener("animationend", () => {
+  credits.addEventListener("animationend", () => {
 
-  // 1️⃣ 3초 암전
-  overlay.style.transition = "opacity 3s ease";
-  overlay.style.opacity = "1";
+    overlay.style.transition = "opacity 3s ease";
+    overlay.style.opacity = "1";
 
-  // 2️⃣ 암전 끝난 뒤 음악 종료
-  setTimeout(() => {
+    setTimeout(()=>{
 
-    const fade = setInterval(() => {
+      const fade = setInterval(()=>{
+        if(bgm.volume > 0.02){
+          bgm.volume -= 0.02;
+        }else{
+          clearInterval(fade);
+          bgm.pause();
+          bgm.currentTime = 0;
+        }
+      },80);
 
-      if (bgm.volume > 0.02) {
-        bgm.volume -= 0.02;
-      } else {
-        clearInterval(fade);
-        bgm.pause();
-        bgm.currentTime = 0;
-      }
+    },3000);
 
-    }, 80);
-
-  }, 3000);
-
-});
+  });
+},100);
 
 </script>
 </body>
