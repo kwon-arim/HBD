@@ -438,6 +438,7 @@ function typeWriter(text,el,speed,callback){
 }
 
 function showEnd(){
+const bgm = document.getElementById("bgm");
   bgm.volume = 0.35;  // 시작 볼륨
   app.innerHTML=`
     <div class="credits-container">
@@ -511,18 +512,24 @@ credits.addEventListener("animationend", () => {
   overlay.style.transition = "opacity 3s ease";
   overlay.style.opacity = "1";
 
-  // 2️⃣ 3초 후 BGM 완전 종료
+  // 2️⃣ 암전 끝난 뒤 페이드아웃 시작
   setTimeout(() => {
 
+    let vol = bgm.volume;
+
     const fade = setInterval(() => {
-      if (bgm.volume > 0.01) {
-        bgm.volume -= 0.02;
+
+      if (vol > 0.01) {
+        vol -= 0.01;
+        if (vol < 0) vol = 0;
+        bgm.volume = vol;
       } else {
+        clearInterval(fade);
         bgm.pause();
         bgm.currentTime = 0;
-        clearInterval(fade);
       }
-    }, 80);
+
+    }, 100); // 🔥 80ms보다 100ms가 더 안정적
 
   }, 3000);
 
@@ -594,3 +601,4 @@ function writeSky(){
 </script>
 </body>
 </html>
+
