@@ -276,7 +276,7 @@ function showPreTitle(){
 
   const el=document.getElementById("pre");
   const typingSound=document.getElementById("typingSound");
-  const bgm=document.getElementById("bgm");
+  const 
 
   let i=0;
 
@@ -481,7 +481,7 @@ The End
       font-weight:bold;
       z-index:9998;">
     </div>
-  `;// 크레딧 애니메이션 끝 감지
+  `;// 크레딧 끝나면 암전
 setTimeout(()=>{
   const credits = document.querySelector(".credits");
   if(!credits) return;
@@ -490,8 +490,10 @@ setTimeout(()=>{
 
     overlay.style.transition = "opacity 3s ease";
     overlay.style.opacity = "1";
-    )};
-}
-</script>
+
+  });
+},100);
+
+  </script>
 </body>
 </html>
