@@ -504,36 +504,32 @@ The End
       z-index:9998;">
     </div>
   `;
-const credits = document.querySelector(".credits");
-
-credits.addEventListener("animationend", () => {
+// 🎬 크레딧 시작 후 60초 뒤 자동 종료 처리
+setTimeout(() => {
 
   // 1️⃣ 3초 암전
   overlay.style.transition = "opacity 3s ease";
   overlay.style.opacity = "1";
 
-  // 2️⃣ 암전 끝난 뒤 페이드아웃 시작
+  // 2️⃣ 암전 완료 후 BGM 페이드아웃
   setTimeout(() => {
-
-    let vol = bgm.volume;
 
     const fade = setInterval(() => {
 
-      if (vol > 0.01) {
-        vol -= 0.01;
-        if (vol < 0) vol = 0;
-        bgm.volume = vol;
+      if (bgm.volume > 0.01) {
+        bgm.volume -= 0.02;
       } else {
         clearInterval(fade);
         bgm.pause();
         bgm.currentTime = 0;
       }
 
-    }, 100); // 🔥 80ms보다 100ms가 더 안정적
+    }, 80);
 
   }, 3000);
 
-});
+}, 60000);
+
 function fadeOutBGM() {
   let vol = bgm.volume;
 
