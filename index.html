@@ -413,27 +413,24 @@ function showPreTitle(){
  
   let i=0;
 
+  // 🔊 시작할 때 한 번만 재생
+  typingSound.loop = true;
+  typingSound.volume = 0.5;
+  typingSound.currentTime = 0;
+  typingSound.play();
+
   function typing(){
-
     if(i<text.length){
-
       el.textContent += text[i];
-
-      // 🔊 타자 소리
-      typingSound.currentTime = 0;
-      typingSound.volume = 1.0;
-      typingSound.play();
-
       i++;
       setTimeout(typing,80);
-
     } else {
 
-      // 🔇 타자 소리 종료
+      // 🔇 끝나면 정지
       typingSound.pause();
       typingSound.currentTime = 0;
 
-      setTimeout(()=> {
+      setTimeout(()=>{
         smoothTransition(showMainTitle);
       },800);
     }
@@ -696,4 +693,5 @@ The End
 
 </script>
 </body>
+
 </html>
